@@ -1,4 +1,3 @@
-import sys
 import re
 
 def part1(lines: list[str]):
@@ -8,9 +7,11 @@ def part1(lines: list[str]):
         result += int(digits[0] + digits[-1])
     print('part 1:', result)
 
+
 digitnames = ['one','two','three','four','five','six','seven','eight','nine']
 def translate(v: str) -> str:
     return v if v.isdigit() else str(digitnames.index(v)+1)
+
 
 def part2(lines: list[str]):
     result = 0
@@ -19,8 +20,13 @@ def part2(lines: list[str]):
         result += int(translate(nums[0]) + translate(nums[-1]))
     print('part 2:', result)
 
-if __name__ == '__main__':
-    with open(sys.argv[1]) as file:
+
+def main():
+    with open('data.txt', 'r', encoding='UTF-8') as file:
         lines = [line.rstrip() for line in file]        
     part1(lines)
     part2(lines)
+
+
+if __name__ == '__main__':
+    main()
