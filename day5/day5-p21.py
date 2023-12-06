@@ -1,3 +1,5 @@
+from datetime import datetime
+
 DATA_FOLDER = 'realdata'
 MAP_ORDER = ['seed-to-soil', 'soil-to-fertilizer', 'fertilizer-to-water', 'water-to-light',
              'light-to-temperature', 'temperature-to-humidity', 'humidity-to-location']
@@ -17,12 +19,12 @@ def process_maps():
 
 
 def process_seeds(seeds, maps):
-    answer = 999999999999999999999999999999
-    temp_seed = 999999999999999999999999999999
-    skip = 1000000
+    answer = float('inf')
+    temp_seed = float('inf')
+    skip = 10000000
     eseed = ()
     for eval_seed in seeds:
-        current = 999999999999999999999999999999
+        current = float('inf')
         for seed in range(eval_seed[0], eval_seed[1], skip):
             for step in MAP_ORDER:
                 for r in maps[step]:
@@ -35,6 +37,7 @@ def process_seeds(seeds, maps):
         if current < answer:
             answer = current
             eseed = eval_seed
+    print('\n', eseed, skip)
     skip = int(skip / 10)
     while skip >= 1:
         current = 999999999999999999999999999999
@@ -51,6 +54,7 @@ def process_seeds(seeds, maps):
                 temp_seed = temp
         if current < answer:
             answer = current
+        print('\n', temp_seed, eseed, skip)
         eseed = temp_seed - skip, temp_seed + skip
         skip = int(skip / 10)
     print()
@@ -66,10 +70,12 @@ def get_seeds():
     return seeds
 
 def main():
+    start = datetime.now()
     seeds = get_seeds()
     maps = process_maps()
     answer = process_seeds(seeds, maps)
     print(f'Answer = {answer}')
+    print(datetime.now() - start)
 
 
 if __name__ == '__main__':
