@@ -40,7 +40,7 @@ def process_seeds(seeds, maps):
     print('\n', eseed, skip)
     skip = int(skip / 10)
     while skip >= 1:
-        current = 999999999999999999999999999999
+        current = float('inf')
         for seed in range(eseed[0], eseed[1], skip):
             temp = seed
             print(f'\rEvaluating {seed}', end='')
