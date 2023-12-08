@@ -1,6 +1,3 @@
-import sys
-
-
 class Hand:
     def __init__(self, cards: list):
         self.cards = cards
