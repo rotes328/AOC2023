@@ -1,3 +1,6 @@
+import math
+
+
 def get_network():
     with open('data.txt', 'r', encoding='UTF-8') as data:
         network = {}
@@ -14,11 +17,10 @@ def format_path(path):
     return [int(turn.replace('L', '0').replace('R', '1')) for turn in path]
 
 
-def evaulate_network(path, network):
+def evaulate_network(node, path, network):
     steps = 0
-    node = 'AAA'
     i = 0
-    while node != 'ZZZ':
+    while not node.endswith('Z'):
         node = network[node][path[i]]
         steps += 1
         i = (i + 1) % len(path)
@@ -28,8 +30,9 @@ def evaulate_network(path, network):
 def main():
     path, network = get_network()
     path = format_path(path)
-    print('Steps in Part 1:', evaulate_network(path, network))
-
+    print('Steps in Part 1:', evaulate_network('AAA', path, network))
+    print('Part 2 Answer:', math.lcm(*[evaulate_network(node, path, network) for node
+                                       in network.keys() if node.endswith('A')]))
 
 if __name__ == '__main__':
     main()
