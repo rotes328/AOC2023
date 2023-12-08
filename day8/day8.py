@@ -31,7 +31,7 @@ def main():
     path, network = get_network()
     path = format_path(path)
     print('Steps in Part 1:', evaulate_network('AAA', path, network))
-    print('Part 2 Answer:', math.lcm(*[evaulate_network(node, path, network) for node
+    print('Steps in Part 2:', math.lcm(*[evaulate_network(node, path, network) for node
                                        in network.keys() if node.endswith('A')]))
 
 if __name__ == '__main__':
