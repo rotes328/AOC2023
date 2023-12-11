@@ -21,42 +21,42 @@ def find_path(array, y, x):
     previous = [y, x]
     while array[current[0]][current[1]] != 'S':
         match array[current[0]][current[1]]:
-            case '|':
+            case '┃':
                 if previous[0] < current[0]:
                     previous = copy(current)
                     current[0] += 1
                 else:
                     previous = copy(current)
                     current[0] -= 1
-            case '-':
+            case '━':
                 if previous[1] < current[1]:
                     previous = copy(current)
                     current[1] += 1
                 else:
                     previous = copy(current)
                     current[1] -= 1
-            case 'L':
+            case '┗':
                 if previous[0] < current[0]:
                     previous = copy(current)
                     current[1] += 1
                 else:
                     previous = copy(current)
                     current[0] -= 1
-            case 'J':
+            case '┛':
                 if previous[1] < current[1]:
                     previous = copy(current)
                     current[0] -= 1
                 else:
                     previous = copy(current)
                     current[1] -= 1
-            case '7':
+            case '┓':
                 if previous[1] < current[1]:
                     previous = copy(current)
                     current[0] += 1
                 else:
                     previous = copy(current)
                     current[1] -= 1
-            case 'F':
+            case '┏':
                 if previous[1] > current[1]:
                     previous = copy(current)
                     current[0] += 1
