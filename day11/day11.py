@@ -6,7 +6,7 @@ def get_input():
     return array
 
 
-def expand(universe, galaxies, expansion_rate):
+def find_gaps(universe, galaxies):
     x = []
     y = []
     for coordinates in galaxies.values():
@@ -20,17 +20,23 @@ def expand(universe, galaxies, expansion_rate):
     for yc in range(len(universe)):
         if yc not in y:
             expand_y.append(yc)
+    return expand_x, expand_y
+
+
+def expand(galaxies, x_gaps, y_gaps, expansion_rate):
     return_galaxies = {}
     for key, value in galaxies.items():
-        countx = 0
-        county = 0
-        for xs in expand_x:
-            if value[0] > xs:
-                countx += 1
-        for ys in expand_y:
-            if value[1] > ys:
-                county += 1
-        return_galaxies[key] = (value[0] + countx * (expansion_rate - 1), value[1] + county * (expansion_rate - 1))
+        count_x = 0
+        count_y = 0
+        for x in x_gaps:
+            if value[0] > x:
+                count_x += 1
+        for y in y_gaps:
+            if value[1] > y:
+                count_y += 1
+        # Add to the coordinates of galaxies to expand them
+        return_galaxies[key] = (value[0] + count_x * (expansion_rate - 1),
+                                value[1] + count_y * (expansion_rate - 1))
     return return_galaxies
 
 
@@ -58,9 +64,11 @@ def shortest_path(galaxies):
 
 def main():
     universe = get_input()
-    expanded_galaxies_1 = expand(universe, find_galaxies(universe), 2)
+    galaxies = find_galaxies(universe)
+    x_gaps, y_gaps = find_gaps(universe, galaxies)
+    expanded_galaxies_1 = expand(galaxies, x_gaps=x_gaps, y_gaps=y_gaps, expansion_rate=2)
     print('Answer Part 1: ', shortest_path(expanded_galaxies_1))
-    expanded_galaxies_2 = expand(universe, find_galaxies(universe), 1000000)
+    expanded_galaxies_2 = expand(galaxies, x_gaps=x_gaps, y_gaps=y_gaps, expansion_rate=1000000)
     print('Answer Part 2: ', shortest_path(expanded_galaxies_2))
 
 
