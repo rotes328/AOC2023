@@ -1,4 +1,3 @@
-
 def get_input():
     springs = []
     with open('data.txt', 'r', encoding='UTF-8') as data:
@@ -7,25 +6,14 @@ def get_input():
             springs.append(this_list)
     return springs
 
-memo_dict = {}
 
 def make_combinations(sequence):
-    global memo_dict
     if '?' not in sequence:
         return [sequence]
-
-    if sequence in memo_dict:
-        return memo_dict[sequence]
-
     index = sequence.find('?')
     combinations_dot = make_combinations(sequence[:index] + '.' + sequence[index + 1:])
     combinations_hash = make_combinations(sequence[:index] + '#' + sequence[index + 1:])
-    result = combinations_dot + combinations_hash
-
-    # Memoize the result
-    memo_dict[sequence] = result
-
-    return result
+    return combinations_dot + combinations_hash
 
 
 def check(numbers, combinations):
@@ -43,15 +31,11 @@ def main():
     springs = get_input()
     total = 0
 
-    # for numbers, spring in springs:
-    #     total += check(numbers, make_combinations(spring))
-    # print(total)
-
-    total = 0
-    for numbers, springs in springs:
-        total += check(numbers * 5, make_combinations('?'.join([springs] * 5)))
+    for numbers, spring in springs:
+        total += check(numbers, make_combinations(spring))
     print(total)
-                
+
+    # Part 2 is hard :(     
 
 if __name__ == '__main__':
     main()
