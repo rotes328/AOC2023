@@ -79,7 +79,7 @@ def main():
                 inflection = this_part1 // 100 or part1_inflection * 100
         part_2 += inflection
     print('Part 1 Answer: ', part_1)
-    print('Part 2 Answer: ', part_2)
+    print('Part 2 Answer: ', part_2) # I am not proud of how part 2 is written
 
 if __name__ == '__main__':
     main()
