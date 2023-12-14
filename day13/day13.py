@@ -43,7 +43,6 @@ def find_inflection(arr, part1_inflection=0):
 
 
 def handle_smudges(mirror, part1_inflection):
-    current = float('inf')
     for row_number, row in enumerate(mirror):
         for col_number, col in enumerate(row):
             new_reflection = 0
@@ -51,15 +50,15 @@ def handle_smudges(mirror, part1_inflection):
                 mirror[row_number][col_number] = "."
                 new_reflection = find_inflection(mirror, part1_inflection)
                 if new_reflection != 0 and new_reflection != part1_inflection:
-                    current = new_reflection
+                    return new_reflection
                 mirror[row_number][col_number] = "#"
             elif mirror[row_number][col_number] == ".":
                 mirror[row_number][col_number] = "#"
                 new_reflection = find_inflection(mirror, part1_inflection)
                 if new_reflection != 0 and new_reflection != part1_inflection:
-                    current = new_reflection
+                    return new_reflection
                 mirror[row_number][col_number] = "."
-    return current
+    return 0
 
 
 def main():
@@ -73,9 +72,9 @@ def main():
             part1_inflection = find_inflection(transpose(arr))
             part_1 += part1_inflection
         inflection = handle_smudges(arr, part1_inflection) * 100
-        if inflection == 0 or inflection == float('inf'):
+        if inflection == 0:
             inflection = handle_smudges(transpose(arr), part1_inflection)
-            if inflection == float('inf'):
+            if inflection == 0:
                 inflection = this_part1 // 100 or part1_inflection * 100
         part_2 += inflection
     print('Part 1 Answer: ', part_1)
